@@ -22,7 +22,12 @@ const HomeContainer = props => {
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
-        <FlatList keyExtractor={item => item._id} numColumns={2} data={books.data} renderItem={Card} />
+        <FlatList
+          keyExtractor={item => item._id}
+          numColumns={2}
+          data={books.data}
+          renderItem={({ item }) => <Card item={item} props={props} />}
+        />
       </View>
       <Button
         title="Go to Book"
@@ -36,5 +41,13 @@ const HomeContainer = props => {
     </View>
   );
 };
+
+HomeContainer.navigationOptions = {
+  headerTitle: "Home Page",
+  headerStyle: {
+    backgroundColor: '#ff6f00'
+  },
+  headerTintColor: 'white'
+}
 
 export default HomeContainer;
