@@ -1,19 +1,37 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import HomeContainer from './src/components/Home/HomeContainer';
+import { createStore } from 'redux';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+import AppNavigator from './AppNavigator';
+import { Provider } from 'react-redux';
+import configureStore from './src/store/configureStore'
 
-export default function App() {
-  return (
-    <View style={styles.fullHeigth}>
-      <HomeContainer />
-    </View>
-  );
-}
+const store = configureStore();
 
-const styles = StyleSheet.create({
-  fullHeigth: {
-    minHeight: '100%',
-    backgroundColor: '#ccc',
-    padding: 30
+const fetchFonts = () => {
+  Font.loadAsync({
+    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+  });
+};
+
+const App = () => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+  if (!fontLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => {
+          setFontLoaded(true);
+        }}
+      />
+    );
   }
-});
+  return (
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  );
+};
+
+export default App;

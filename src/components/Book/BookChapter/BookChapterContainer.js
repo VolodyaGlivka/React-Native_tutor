@@ -1,10 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text,Button } from 'react-native';
+import styles from '../../../../styles';
 
-const BookChapterContainer = () => {
+const BookChapterContainer = props => {
   return (
-    <View>
-      <Text>BookChapterContainer</Text>
+    <View style={styles.screen}>
+      <Text>BookChapterContainer</Text> 
+      <Button title='Go Back' onPress={() => {
+        // back to root element
+        props.navigation.popToTop()
+      }} />
     </View>
   );
 };
