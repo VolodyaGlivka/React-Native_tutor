@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flex: 1,
     maxWidth: '50%',
-    height: 250
+    height: 250,
+    fontFamily: 'open-sans'
   }
 });
 

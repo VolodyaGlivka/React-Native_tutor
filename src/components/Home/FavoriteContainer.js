@@ -9,7 +9,7 @@ import booksAction from '../../store/actions/books';
 //Custom components
 import Card from '../Book/Card';
 
-const HomeContainer = props => {
+const FavoriteContainer = props => {
   const dispatch = useDispatch();
   const books = useSelector(state => state.books.list);
 
@@ -22,7 +22,7 @@ const HomeContainer = props => {
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
-        <FlatList
+        {/* <FlatList
           keyExtractor={item => item._id}
           numColumns={2}
           data={books.data}
@@ -32,27 +32,20 @@ const HomeContainer = props => {
               onSelect={() => props.navigation.navigate({ routeName: 'Book', params: { id: item.id } })}
             />
           )}
-        />
+        /> */}
+        <Text>FavoriteContainer</Text>
       </View>
-      <Button
-        title='Go to Book'
-        onPress={() => {
-          // also we can use props.navigation.navigate('Book');
-          // also we can use props.navigation.push('Book'); but in this case it will be added to stack
-          // also we can use props.navigation.replace('Book'); but in this case it will be replaced Home to Book
-          props.navigation.navigate({ routeName: 'Book' });
-        }}
-      />
+      
     </View>
   );
 };
 
-HomeContainer.navigationOptions = {
-  headerTitle: 'Home Page',
+FavoriteContainer.navigationOptions = {
+  headerTitle: 'FavoriteContainer Page',
   headerStyle: {
     backgroundColor: '#ff6f00'
   },
   headerTintColor: 'white'
 };
 
-export default HomeContainer;
+export default FavoriteContainer;
