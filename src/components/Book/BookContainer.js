@@ -1,49 +1,52 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
 import styles from '../../../styles';
+import { AppLoading } from 'expo';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../HeaderButtons/HeaderButtons';
+import { useSelector, useDispatch } from 'react-redux';
+import { getTitle } from '../../utils';
+
+// Actions
+import booksAction from '../../store/actions/books';
 
 const BookContainer = props => {
-  const bookId = props.navigation.getParams('id');
+  const bookId = props.navigation.getParam('id');
+  const dispatch = useDispatch();
+  const book = useSelector(state => state.books.value);
+  const [bookLoaded, setBookLoaded] = useState(false);
+  const onGetBook = useCallback(() => dispatch(booksAction.getSingleBook(bookId)), [dispatch]);
+
+  if (!bookLoaded) {
+    return (
+      <AppLoading
+        startAsync={onGetBook}
+        onFinish={() => {
+          setBookLoaded(true);
+        }}
+      />
+    );
+  }
+
   return (
-    <View style={styles.screen}>
-      <Text>BookContainer</Text>
-      <Button
-        title='Go to Chapter'
-        onPress={() => {
-          // also we can use props.navigation.pop();
-          props.navigation.navigate('BookChapter');
-        }}
-      />
-      <Button
-        title='Go Back'
-        onPress={() => {
-          // also we can use props.navigation.pop();
-          props.navigation.goBack();
-        }}
-      />
-    </View>
+    <ScrollView style={styles.screen}>
+      <View>
+        <Image style={{ width: '100%', height: 360 }} resizeMode="contain" source={{ uri: book.img_url }} />
+        <Text>{getTitle(book.title)}</Text>
+        <Text>{book.description}</Text>
+      </View>
+    </ScrollView>
   );
 };
 
-// this we can use if we have static information
-// BookContainer.navigationOptions = {
-//   headerTitle: "Book Page",
-//   headerStyle: {
-//     backgroundColor: '#ff6f00'
-//   },
-//   headerTintColor: 'white'
-// }
-
 // this we can use if we have dynamic information
 BookContainer.navigationOptions = props => {
-  const bookId = props.navigation.getParams('id');
+  const bookId = props.navigation.getParam('id');
+
   return {
-    headerTitle: bookId,
-    headerRight: (
+    headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item title='favorite' iconName='ios-star' onPress={()=>{}} />
+        <Item title="favorite" iconName="ios-star" onPress={() => {}} />
       </HeaderButtons>
     )
   };

@@ -2,6 +2,8 @@
  ** Here we describe constant colors for styling elements
 */
 export default {
-  primary: 'red',
-  secondary: 'blue'
+  primary: '#281935',
+  secondary: '#482e5d',
+  third: '#9575cd',
+  textColor: 'white'
 };

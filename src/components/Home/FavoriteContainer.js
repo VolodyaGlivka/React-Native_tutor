@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Button, FlatList } from 'react-native';
+import { View, Button, FlatList, Text } from 'react-native';
 import styles from '../../../styles';
 
 // Actions
@@ -35,13 +35,12 @@ const FavoriteContainer = props => {
         /> */}
         <Text>FavoriteContainer</Text>
       </View>
-      
     </View>
   );
 };
 
 FavoriteContainer.navigationOptions = {
-  headerTitle: 'FavoriteContainer Page',
+  headerTitle: () => 'FavoriteContainer Page',
   headerStyle: {
     backgroundColor: '#ff6f00'
   },

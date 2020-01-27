@@ -29,30 +29,20 @@ const HomeContainer = props => {
           renderItem={({ item }) => (
             <Card
               item={item}
-              onSelect={() => props.navigation.navigate({ routeName: 'Book', params: { id: item.id } })}
+              onSelect={() => props.navigation.navigate({ routeName: 'Book', params: { id: item._id } })}
             />
           )}
         />
       </View>
-      <Button
-        title='Go to Book'
-        onPress={() => {
-          // also we can use props.navigation.navigate('Book');
-          // also we can use props.navigation.push('Book'); but in this case it will be added to stack
-          // also we can use props.navigation.replace('Book'); but in this case it will be replaced Home to Book
-          props.navigation.navigate({ routeName: 'Book' });
-        }}
-      />
     </View>
   );
 };
 
 HomeContainer.navigationOptions = {
-  headerTitle: 'Home Page',
-  headerStyle: {
-    backgroundColor: '#ff6f00'
-  },
-  headerTintColor: 'white'
+  // headerStyle: {
+  //   backgroundColor: '#ff6f00'
+  // },
+  // headerTintColor: 'white'
 };
 
 export default HomeContainer;

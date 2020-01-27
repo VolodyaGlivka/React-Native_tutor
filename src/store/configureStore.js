@@ -1,12 +1,13 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import createRootReducer from './reducers';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export default function configureStore(preloadedState) {
   const store = createStore(
-    createRootReducer(), // root reducer with router state
+    createRootReducer(),// root reducer with router state
     preloadedState,
-    compose(applyMiddleware(thunk))
+    composeWithDevTools(applyMiddleware(thunk))
   );
 
   return store;

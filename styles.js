@@ -1,21 +1,30 @@
 import { StyleSheet } from 'react-native';
-import Colors from './src/const/colors';
+import colors from './src/const/colors';
 /*
  ** Here we describe styles which we use in many places in the app
  */
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: '#ccc'
+    backgroundColor: colors.secondary,
+    flex: 1
   },
-  container: {
-    paddingHorizontal: 10
-  },
+  container: {},
   'col-6': {
-    paddingHorizontal: 10,
+    padding: 10,
     flex: 1,
     maxWidth: '50%',
-    height: 250,
+    height: 300,
     fontFamily: 'open-sans'
+  },
+  gridItem: {
+    borderWidth: 1,
+    flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    borderColor : colors.third
+  },
+  textColor: {
+    color: colors.textColor
   }
 });
 

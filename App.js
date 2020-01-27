@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { createStore } from 'redux';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import AppNavigator from './AppNavigator';
 import { Provider } from 'react-redux';
 import configureStore from './src/store/configureStore';
-import { useScreens } from 'react-native-screens';
+import { enableScreens } from 'react-native-screens';
 
 // we use it for better performances
-useScreens()
+enableScreens();
 
 const store = configureStore();
 
