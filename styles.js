@@ -16,15 +16,44 @@ const styles = StyleSheet.create({
     height: 300,
     fontFamily: 'open-sans'
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   gridItem: {
     borderWidth: 1,
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 5,
-    borderColor : colors.third
+    borderColor: colors.third
   },
   textColor: {
     color: colors.textColor
+  },
+  bookContainer: {
+    padding: 15
+  },
+  bookTitle: {
+    color: 'white',
+    marginVertical: 10,
+    fontSize: 28,
+    width: '100%'
+  },
+  cameraContainer: {
+    top: -25,
+    left: '79%',
+    borderColor: 'white',
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white'
+  },
+  bookImageContainer: { height: 380 },
+  bookDescription: {
+    color: 'white'
   }
 });
 

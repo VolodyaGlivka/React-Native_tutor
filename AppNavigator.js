@@ -26,7 +26,6 @@ const AppNavigator = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerTitleStyle: {
-        fontFamily: 'open-sans-bold',
         marginLeft: -25
       },
       headerStyle: {
@@ -47,7 +46,6 @@ const FavoriveNavigator = createStackNavigator(
         backgroundColor: colors.primary
       },
       headerTitleStyle: {
-        fontFamily: 'open-sans-bold',
         marginLeft: -25
       },
       headerTintColor: 'white'
@@ -60,14 +58,14 @@ const tabs = {
     screen: AppNavigator,
     navigationOptions: {
       tabBarLabel: 'Home',
-      tabBarIcon: data => <Ionicons name='ios-home' size={25} color='white' />
+      tabBarIcon: data => <Ionicons name="ios-home" size={25} color="white" />
     }
   },
   Favorite: {
     screen: FavoriveNavigator,
     navigationOptions: {
       tabBarLabel: 'Favorites',
-      tabBarIcon: data => <Ionicons name='ios-star' size={25} color='white' />
+      tabBarIcon: data => <Ionicons name="ios-star" size={25} color="white" />
     }
   }
 };
@@ -75,12 +73,12 @@ const tabs = {
 const bottomTabNavigator =
   Platform.OS === 'android'
     ? createMaterialBottomTabNavigator(tabs, {
-      inactiveColorDark: 'red',
-      initialRouteName : 'Main',
+        inactiveColorDark: 'red',
+        initialRouteName: 'Main',
         barStyle: {
           backgroundColor: colors.primary
         }
-    })
+      })
     : createBottomTabNavigator(tabs, {
         tabBarOptions: {
           activeBackgroundColor: 'red'

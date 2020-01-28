@@ -10,7 +10,7 @@ export class DataService {
         'Content-Type': 'application/json',
         // Authorization: `Bearer ${DataService.authToken}`
       },
-      // body: JSON.stringify(body)
+      body: JSON.stringify(body)
     };
     return requestOptions;
   }
