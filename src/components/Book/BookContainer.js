@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, Alert } from 'react-native';
 import styles from '../../../styles';
 import { AppLoading } from 'expo';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -31,7 +31,7 @@ const BookContainer = props => {
   return (
     <ScrollView style={styles.screen}>
       <View>
-        <Image style={{ width: '100%', height: 360 }} resizeMode="contain" source={{ uri: book.img_url }} />
+        <Image style={{ width: '100%', height: 360 }} resizeMode='contain' source={{ uri: book.img_url }} />
         <Text>{getTitle(book.title)}</Text>
         <Text>{book.description}</Text>
       </View>
@@ -46,7 +46,22 @@ BookContainer.navigationOptions = props => {
   return {
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item title="favorite" iconName="ios-star" onPress={() => {}} />
+        <Item
+          title='favorite'
+          iconName='ios-star'
+          size={25}
+          color='white'
+          onPress={() => {
+            Alert.alert('added to favorites','', [
+              {
+                text: 'Cancel',
+                onPress: () => {},
+                style: 'cancel'
+              },
+              { text: 'OK', onPress: () => console.log('OK Pressed') }
+            ]);
+          }}
+        />
       </HeaderButtons>
     )
   };

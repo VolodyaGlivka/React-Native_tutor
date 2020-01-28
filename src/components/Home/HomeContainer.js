@@ -2,6 +2,8 @@ import React, { useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Button, FlatList } from 'react-native';
 import styles from '../../../styles';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../HeaderButtons/HeaderButtons';
 
 // Actions
 import booksAction from '../../store/actions/books';
@@ -38,11 +40,14 @@ const HomeContainer = props => {
   );
 };
 
-HomeContainer.navigationOptions = {
-  // headerStyle: {
-  //   backgroundColor: '#ff6f00'
-  // },
-  // headerTintColor: 'white'
+HomeContainer.navigationOptions = props => {
+  return {
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+        <Item title='favorite' iconName='ios-menu' size={32} color='white' onPress={() => {props.navigation.toggleDrawer()}} />
+      </HeaderButtons>
+    )
+  };
 };
 
 export default HomeContainer;
