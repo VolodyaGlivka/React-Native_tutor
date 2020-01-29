@@ -8,7 +8,7 @@ export class DataService {
       method: method || 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${DataService.authToken}`
+        Authorization: `Bearer ${DataService.authToken}`
       },
       body: JSON.stringify(body)
     };

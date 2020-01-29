@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
 import booksReducer from './books';
-const createRootReducer = () => combineReducers({
-  books: booksReducer
-});
+import authReducer from './auth';
+const createRootReducer = () =>
+  combineReducers({
+    books: booksReducer,
+    auth: authReducer
+  });
 
 export default createRootReducer;

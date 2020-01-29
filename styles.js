@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 28,
     width: '100%',
-    fontFamily: 'open-sans-bold',
+    fontFamily: 'open-sans-bold'
   },
   cameraContainer: {
     position: 'absolute',
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   bookImageContainer: { position: 'relative', marginBottom: 15 },
   bookDescription: {
     color: 'white',
-    fontFamily: 'open-sans',
+    fontFamily: 'open-sans'
   },
   loadingContainer: {
     flex: 1,
@@ -72,6 +72,32 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontFamily: 'open-sans-bold',
     backgroundColor: colors.third,
+    color: 'white',
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 18,
+    padding: 5,
+    width: 200,
+    marginHorizontal: 'auto',
+    borderRadius: 50
+  },
+  inputField: {
+    borderColor: colors.third,
+    borderWidth: 1,
+    // fontFamily: 'open-sans',
+    color: 'white',
+    paddingVertical: 10,
+    fontSize: 18,
+    paddingHorizontal: 25,
+    width: 250,
+    borderRadius: 50,
+    marginVertical: 10
+  },
+  loginButton: {
+    marginTop: 20,
+    borderColor: colors.third,
+    borderWidth: 1,
+    // fontFamily: 'open-sans-bold',
     color: 'white',
     textAlign: 'center',
     paddingVertical: 10,
