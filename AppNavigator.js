@@ -121,6 +121,7 @@ const AuthNavigator = createStackNavigator(
   }
 );
 
+
 const MainNavigator = createSwitchNavigator({
   Login: AuthNavigator,
   HomePage: drawerNavigator

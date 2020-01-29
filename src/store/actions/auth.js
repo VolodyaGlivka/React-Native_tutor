@@ -1,8 +1,8 @@
-// import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import { SET_CURRENT_USER } from './types';
-// import setAuthToken from '../../utils/setAuthToken';
+import { AsyncStorage } from 'react-native';
+import setAuthToken from '../../utils/setAuthToken';
 import AuthService from '../services/auth';
-// import ErrorsActions from './errors';
 
 export default class AuthActions {
   static setCurrentUser = decoded => {
@@ -16,27 +16,34 @@ export default class AuthActions {
     try {
       const data = await AuthService.loginUser(userData);
       // Save to localStorage
-      // const { bearerToken } = data;
+      const { token, refreshToken } = data;
       // Set token to ls
-      // localStorage.setItem('jwtToken', bearerToken);
+      AsyncStorage.multiSet([
+        ['token', token],
+        ['refreshToken', refreshToken]
+      ]).then(() => {
+        AsyncStorage.getItem('token').then(result => {
+          console.log('result', result);
+        });
+      });
       // Set token to Auth header
-      // setAuthToken(bearerToken);
+      setAuthToken(token);
       // Decode token to get user data
-      // const decode = jwt_decode(bearerToken);
+      const decode = jwt_decode(token);
       // Set current user
-      // dispatch(AuthActions.setCurrentUser(decode));
-      dispatch(AuthActions.setCurrentUser(data));
+      dispatch(AuthActions.setCurrentUser(decode));
     } catch (err) {
+      // here we add error listener
       console.log('error', err);
     }
   };
 
   static logoutUser = () => dispatch => {
-    // localStorage.getItem('jwtToken');
-    // Remove token from localStorage
-    // localStorage.removeItem('jwtToken');
+    AsyncStorage.multiGet(['token', 'refreshToken']).then(() => {
+      AsyncStorage.multiRemove(['token', 'refreshToken']);
+    });
     // Remove auth header for future requests
-    // setAuthToken(false);
+    setAuthToken(null);
     // Set current user to {} witch will set isAuthenticated to false
     dispatch(AuthActions.setCurrentUser({}));
   };

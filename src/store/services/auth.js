@@ -5,7 +5,7 @@ export default class AuthService {
   static async loginUser(authData) {
     try {
       const userData = {
-        email: authData.userName,
+        login: authData.login,
         password: authData.password
       };
       const result = await DataService.sendRequest(ServicesConfig.authEndpoint, 'POST', userData);
