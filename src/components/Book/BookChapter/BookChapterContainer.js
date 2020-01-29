@@ -8,7 +8,7 @@ const BookChapterContainer = props => {
       <Text>BookChapterContainer</Text> 
       <Button title='Go Back' onPress={() => {
         // back to root element
-        props.navigation.popToTop()
+        props.navigation.pop()
       }} />
     </View>
   );

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Button, FlatList } from 'react-native';
 import styles from '../../../styles';
@@ -14,17 +14,23 @@ import Card from '../Book/Card';
 const HomeContainer = props => {
   const dispatch = useDispatch();
   const books = useSelector(state => state.books.list);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const onGetBooks = useCallback(() => dispatch(booksAction.getBooks()), [dispatch]);
+  const onGetBooks = useCallback(async () => dispatch(booksAction.getBooks()), [dispatch]);
 
   useMemo(() => {
-    onGetBooks();
+    setIsRefreshing(true);
+    onGetBooks().then(() => {
+      setIsRefreshing(false);
+    });
   }, [onGetBooks]);
 
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
         <FlatList
+          onRefresh={onGetBooks}
+          refreshing ={isRefreshing}
           keyExtractor={item => item._id}
           numColumns={2}
           data={books.data}

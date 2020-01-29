@@ -23,12 +23,15 @@ const styles = StyleSheet.create({
   gridItem: {
     borderWidth: 1,
     flex: 1,
+    borderRadius: 3,
     paddingVertical: 10,
-    paddingHorizontal: 5,
+    paddingHorizontal: 8,
     borderColor: colors.third
   },
-  textColor: {
-    color: colors.textColor
+  gridBookTitle: {
+    marginTop: 5,
+    color: 'white',
+    fontFamily: 'open-sans-bold'
   },
   bookContainer: {
     padding: 15
@@ -37,11 +40,13 @@ const styles = StyleSheet.create({
     color: 'white',
     marginVertical: 10,
     fontSize: 28,
-    width: '100%'
+    width: '100%',
+    fontFamily: 'open-sans-bold',
   },
   cameraContainer: {
-    top: -25,
-    left: '79%',
+    position: 'absolute',
+    bottom: -25,
+    left: '75%',
     borderColor: 'white',
     width: 50,
     height: 50,
@@ -51,9 +56,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'white'
   },
-  bookImageContainer: { height: 380 },
+  bookImageContainer: { position: 'relative', marginBottom: 15 },
   bookDescription: {
-    color: 'white'
+    color: 'white',
+    fontFamily: 'open-sans',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  startReadButton: {
+    marginTop: 20,
+    borderColor: colors.third,
+    borderWidth: 1,
+    fontFamily: 'open-sans-bold',
+    backgroundColor: colors.third,
+    color: 'white',
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 18,
+    padding: 5,
+    width: 200,
+    marginHorizontal: 'auto',
+    borderRadius: 50
   }
 });
 
