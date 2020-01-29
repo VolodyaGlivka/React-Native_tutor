@@ -38,6 +38,15 @@ export default class AuthActions {
     }
   };
 
+  static authenticate = token => dispatch => {
+    // Set token to Auth header
+    setAuthToken(token);
+    // Decode token to get user data
+    const decode = jwt_decode(token);
+    // Set current user
+    dispatch(AuthActions.setCurrentUser(decode));
+  };
+
   static logoutUser = () => dispatch => {
     AsyncStorage.multiGet(['token', 'refreshToken']).then(() => {
       AsyncStorage.multiRemove(['token', 'refreshToken']);

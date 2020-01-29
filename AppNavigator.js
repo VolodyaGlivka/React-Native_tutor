@@ -1,4 +1,5 @@
 import React from 'react';
+import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -8,9 +9,11 @@ import FavoriteContainer from './src/components/Home/FavoriteContainer';
 import BookContainer from './src/components/Book/BookContainer';
 import BookChapterContainer from './src/components/Book/BookChapter/BookChapterContainer';
 import LoginContainer from './src/components/Login/LoginContainer';
+import StarUpContainer from './src/components/Home/StartUpContainer';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import colors from './src/const/colors';
+
 
 /**
  * In each screen we can pass not only single container but also other navigators
@@ -59,14 +62,14 @@ const tabs = {
     screen: AppNavigator,
     navigationOptions: {
       tabBarLabel: 'Home',
-      tabBarIcon: data => <Ionicons name='ios-home' size={25} color='white' />
+      tabBarIcon: data => <Ionicons name="ios-home" size={25} color="white" />
     }
   },
   Favorite: {
     screen: FavoriveNavigator,
     navigationOptions: {
       tabBarLabel: 'Favorites',
-      tabBarIcon: data => <Ionicons name='ios-star' size={25} color='white' />
+      tabBarIcon: data => <Ionicons name="ios-star" size={25} color="white" />
     }
   }
 };
@@ -113,7 +116,6 @@ const AuthNavigator = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerStyle: {
-        
         backgroundColor: colors.primary
       },
       headerTintColor: 'white'
@@ -121,8 +123,8 @@ const AuthNavigator = createStackNavigator(
   }
 );
 
-
 const MainNavigator = createSwitchNavigator({
+  StartUp: StarUpContainer,
   Login: AuthNavigator,
   HomePage: drawerNavigator
 });
