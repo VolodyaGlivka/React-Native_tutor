@@ -3,6 +3,7 @@ import { SET_CURRENT_USER } from './types';
 import { AsyncStorage } from 'react-native';
 import setAuthToken from '../../utils/setAuthToken';
 import AuthService from '../services/auth';
+import NavigationServises from '../../utils/navigationServises';
 
 export default class AuthActions {
   static setCurrentUser = decoded => {
@@ -15,23 +16,20 @@ export default class AuthActions {
   static loginUser = userData => async dispatch => {
     try {
       const data = await AuthService.loginUser(userData);
-      // Save to localStorage
+      // destruction of input data
       const { token, refreshToken } = data;
       // Set token to ls
       AsyncStorage.multiSet([
         ['token', token],
         ['refreshToken', refreshToken]
-      ]).then(() => {
-        AsyncStorage.getItem('token').then(result => {
-          console.log('result', result);
-        });
-      });
+      ]);
       // Set token to Auth header
       setAuthToken(token);
       // Decode token to get user data
       const decode = jwt_decode(token);
       // Set current user
       dispatch(AuthActions.setCurrentUser(decode));
+      NavigationServises.navigate('HomePage');
     } catch (err) {
       // here we add error listener
       console.log('error', err);

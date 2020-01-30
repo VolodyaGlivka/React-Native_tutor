@@ -2,7 +2,6 @@ import { ServicesConfig } from './config';
 
 export class DataService {
   static authToken = null;
-
   static prepareOptions(method, body) {
     let requestOptions = {
       method: method || 'GET',
