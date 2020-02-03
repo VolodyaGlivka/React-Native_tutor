@@ -10,10 +10,10 @@ import BookContainer from './src/components/Book/BookContainer';
 import BookChapterContainer from './src/components/Book/BookChapter/BookChapterContainer';
 import LoginContainer from './src/components/Login/LoginContainer';
 import StarUpContainer from './src/components/Home/StartUpContainer';
+import LocationContainer from './src/components/Location/LocationContainer';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import colors from './src/const/colors';
-
 
 /**
  * In each screen we can pass not only single container but also other navigators
@@ -25,6 +25,23 @@ const AppNavigator = createStackNavigator(
       screen: BookContainer
     },
     BookChapter: BookChapterContainer
+  },
+  // here we can set default navigation Option for all pages
+  {
+    defaultNavigationOptions: {
+      headerTitleStyle: {
+        marginLeft: -25
+      },
+      headerStyle: {
+        backgroundColor: colors.primary
+      },
+      headerTintColor: 'white'
+    }
+  }
+);
+const LocationNavigator = createStackNavigator(
+  {
+    Location: { screen: LocationContainer },
   },
   // here we can set default navigation Option for all pages
   {
@@ -62,14 +79,14 @@ const tabs = {
     screen: AppNavigator,
     navigationOptions: {
       tabBarLabel: 'Home',
-      tabBarIcon: data => <Ionicons name="ios-home" size={25} color="white" />
+      tabBarIcon: data => <Ionicons name='ios-home' size={25} color='white' />
     }
   },
   Favorite: {
     screen: FavoriveNavigator,
     navigationOptions: {
       tabBarLabel: 'Favorites',
-      tabBarIcon: data => <Ionicons name="ios-star" size={25} color="white" />
+      tabBarIcon: data => <Ionicons name='ios-star' size={25} color='white' />
     }
   }
 };
@@ -96,6 +113,14 @@ const drawerNavigator = createDrawerNavigator(
       navigationOptions: () => {
         return {
           drawerLabel: 'Home'
+        };
+      }
+    },
+    Location: {
+      screen: LocationNavigator,
+      navigationOptions: () => {
+        return {
+          drawerLabel: 'Location'
         };
       }
     }

@@ -8,6 +8,9 @@ import CustomHeaderButton from '../HeaderButtons/HeaderButtons';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTitle, getDescription } from '../../utils';
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import * as AskPermissions from 'expo-permissions';
+import * as FileSystem from 'expo-file-system';
 
 // Actions
 import booksAction from '../../store/actions/books';
@@ -17,6 +20,7 @@ const BookContainer = props => {
   const bookId = props.navigation.getParam('id');
   const dispatch = useDispatch();
   const book = useSelector(state => state.books.value);
+  const [pickedImage, setPickedImage] = React.useState();
   const [bookItem, setBookItem] = useState({
     ...book,
     title: getTitle(book.title),
@@ -51,6 +55,38 @@ const BookContainer = props => {
     onGetBook();
   }, [dispatch, onGetBook]);
 
+  const verifyPermissions = async () => {
+    const result = await AskPermissions.askAsync(AskPermissions.CAMERA);
+    if (result.status !== 'granted') {
+      Alert.alert('Permission denied', 'You need to allow use your camera', [{ text: 'Ok' }]);
+      return false;
+    }
+    return true;
+  };
+
+  const handleImagePicker = async () => {
+    const hasPermissions = await verifyPermissions();
+    if (!hasPermissions) {
+      return;
+    }
+    const image = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [9, 16],
+      quality: 0.5
+    });
+    setPickedImage(image.uri);
+    const imageName = image.split('/').pop();
+    const newPath = FileSystem.documentDirectory + imageName;
+    try {
+      await FileSystem.moveAsync({
+        from: image,
+        to: newPath
+      });
+    } catch (err) {
+      console.log('error', error);
+    }
+  };
+
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
@@ -63,9 +99,16 @@ const BookContainer = props => {
     <ScrollView style={styles.screen}>
       <View style={styles.bookContainer}>
         <View style={styles.bookImageContainer}>
-          <Image style={{ width: '100%', height: 320 }} resizeMode='contain' source={{ uri: bookItem.img_url }} />
+          {pickedImage ? (
+            <Image style={{ width: 240, height: 320 }} resizeMode='cover' source={{ uri: pickedImage }} />
+          ) : (
+            <Image style={{ width: 240, height: 320 }} resizeMode='contain' source={{ uri: bookItem.img_url }} />
+          )}
+
           <View style={styles.cameraContainer}>
-            <Ionicons name='ios-camera' size={25} color={colors.secondary} />
+            <TouchableNativeFeedback onPress={handleImagePicker}>
+              <Ionicons name='ios-camera' size={25} color={colors.secondary} />
+            </TouchableNativeFeedback>
           </View>
         </View>
         <View style={styles.row}>

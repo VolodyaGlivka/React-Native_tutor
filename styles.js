@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'white'
   },
-  bookImageContainer: { position: 'relative', marginBottom: 15 },
+  bookImageContainer: { position: 'relative', marginBottom: 15, alignItems: 'center' },
   bookDescription: {
     color: 'white',
     fontFamily: 'open-sans'
