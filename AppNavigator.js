@@ -14,7 +14,7 @@ import LocationContainer from './src/components/Location/LocationContainer';
 import { Ionicons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import colors from './src/const/colors';
-
+import MapPreviewContainer from './src/components/Location/MapPreview';
 /**
  * In each screen we can pass not only single container but also other navigators
  */
@@ -42,6 +42,7 @@ const AppNavigator = createStackNavigator(
 const LocationNavigator = createStackNavigator(
   {
     Location: { screen: LocationContainer },
+    MapPreview: { screen: MapPreviewContainer }
   },
   // here we can set default navigation Option for all pages
   {

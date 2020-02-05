@@ -106,6 +106,16 @@ const styles = StyleSheet.create({
     width: 200,
     marginHorizontal: 'auto',
     borderRadius: 50
+  },
+  locationContainer: {
+    padding: 15,
+    flex: 1
+  },
+  locationBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+
   }
 });
 
