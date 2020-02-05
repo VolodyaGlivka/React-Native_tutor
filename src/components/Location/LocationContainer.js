@@ -8,10 +8,40 @@ import styles from '../../../styles';
 
 const LocationContainer = props => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
+  const [address, setAddress] = useState();
+
+  const API_KEY = 'AIzaSyD6dTFQovWvxfcuOqfS5GqLceW7Np2rKIg';
+
+  let selectedPoint;
+  try {
+    selectedPoint = props.navigation.getParam('pickedLocation');
+  } catch (err) {
+    console.log('err', err);
+  }
+
+  React.useEffect(() => {
+    if (selectedPoint) {
+      setLocation({ ...selectedPoint });
+    }
+  }, [selectedPoint]);
+
+  React.useEffect(() => {
+    if (location.lat && location.lng) {
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+          setAddress(data.results[0].formatted_address);
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+    }
+  }, [location]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isLocationLoaded, setIsLocationLoaded] = useState(false);
   const uri = `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}&zoom=14&size=600x500&maptype=roadmap
-  &markers=color:red%7Clabel:C%7C${location.lat},${location.lng}&key=AIzaSyD6dTFQovWvxfcuOqfS5GqLceW7Np2rKIg`;
+  &markers=color:red%7Clabel:C%7C${location.lat},${location.lng}&key=${API_KEY}`;
 
   const verifyPermissions = async () => {
     const result = await AskPermissions.askAsync(AskPermissions.LOCATION);
@@ -42,23 +72,38 @@ const LocationContainer = props => {
   return (
     <View style={styles.screen}>
       <View style={styles.locationContainer}>
-        {isLocationLoaded && location ? (
-          <View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={{ width: '100%', height: 320 }}
-              onPress={() => props.navigation.navigate({ routeName: 'MapPreview', params: { location } })}
-            >
-              <Image style={{ width: '100%', height: '100%' }} source={{ uri: uri }} />
-            </TouchableOpacity>
+        {isLoading ? (
+          <View style={{ width: '100%', height: 320 }}>
+            <ActivityIndicator />
           </View>
         ) : (
-          <View style={{ width: '100%', height: 320 }}>
-            {isLoading ? <ActivityIndicator /> : <Text>Location Picker</Text>}
+          <View>
+            {isLocationLoaded && location ? (
+              <View>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={{ width: '100%', height: 320 }}
+                  onPress={() => props.navigation.navigate({ routeName: 'MapPreview', params: { location } })}
+                >
+                  <Image style={{ width: '100%', height: '100%' }} source={{ uri: uri }} />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View style={{ width: '100%', height: 320 }}>
+                <Text>Location Picker</Text>
+              </View>
+            )}
           </View>
         )}
 
-        <Button title='Get user Location' onPress={locationHandler} />
+        <View>
+          <Text style={styles.addressText}>{address}</Text>
+        </View>
+        <View style={{alignItems: 'center'}}>
+          <TouchableOpacity onPress={locationHandler} activeOpacity={0.8}>
+            <Text style={styles.getLocationButton}>Get Current Location</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

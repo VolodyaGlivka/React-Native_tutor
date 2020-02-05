@@ -115,7 +115,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
-
+  },
+  addressText: {
+    marginVertical: 15,
+    color: 'white',
+    fontSize: 18
+  },
+  getLocationButton: {
+    marginTop: 15,
+    borderColor: colors.third,
+    borderWidth: 1,
+    fontFamily: 'open-sans-bold',
+    backgroundColor: colors.third,
+    color: 'white',
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 18,
+    padding: 5,
+    width: 250,
+    marginHorizontal: 'auto',
+    borderRadius: 50
   }
 });
 
